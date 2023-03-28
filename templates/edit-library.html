@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Library#{{data[0]}}</title>
+
+    <!-- fav-icon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/images/newlogo.png') }}" type="image/x-icon">
+    <!-- style.css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+</head>
+
+<body>
+    <nav class="navbar fixed-top mb-5">
+        <div class="container-fluid mx-2">
+            <a href="/library" class="navbar-brand">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+            <div class="d-flex">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="container pt-5">
+        <div class="row mt-5 text-center">
+            <h1 class="start_text pt-3">แก้ไขรายการที่ {{ data [0] }}</h1>
+
+            <p class="text-secondary pt-3">
+                รายการเอกสารไฟล์ PDF ของคุณ สามารถแก้ไขรายระเอียด และลบรายการได้
+            </p>
+            <div class="col-12 text-start pt-5">
+
+                <div class="mb-3">
+                    <label for="topic" class="form-label">หัวข้อ</label>
+                    <input type="text" class="form-control" id="topic" name="topic" required value="{{data[1]}}">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">รายละเอียด (ไม่บังคับ)</label>
+                    <input type="text" class="form-control" id="description" name="description" value="{{data[2]}}">
+                </div>
+                <div class="mb-3">
+                    <label for="name" class="form-label">จัดทำโดย (ชื่อของคุณ)</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{data[5]}}">
+                </div>
+
+                <p style="font-size: 18px;">ข้อความที่ได้รับ:</p>
+                <textarea id="text" class="w-100 text_re" style="height: 200px;border: 5px solid #204FE0; border-radius: 10px;">{{data[3]}}</textarea>
+
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-6 mt-5 d-flex justify-content-center align-items-center">
+                        <a href="{{ url_for('edit', id=data[0]) }}" class="btn_edit w-100 text-center">แก้ไขรายการ</a>
+                    </div>
+                    <div class="col-6 mt-5 d-flex justify-content-center align-items-center">
+                        <a class="btn_delete w-100 text-center" id="delete-btn" data-id="{{ data[0] }}">
+                           ลบรายการ
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <footer class="d-flex justify-content-between align-items-center px-3">
+        <a class="navbar-brand">
+            <img src="{{ url_for('static', filename='images/newlogo.png') }}" alt="">
+        </a>
+        <p class="text_foot">© 2022 SNP65 , All Rights Reserved</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13 " crossorigin="anonymous "></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js" integrity="sha512-Z8CqofpIcnJN80feS2uccz+pXWgZzeKxDsDNMD/dJ6997/LSRY+W4NmEt9acwR+Gt9OHN0kkI1CTianCwoqcjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    // edit library
+    $(".btn_edit").click(function(e) {
+        e.preventDefault();
+        const id = "{{data[0]}}"
+        const topic = document.getElementById('topic')
+        const description = document.getElementById('description')
+        const text = document.getElementById('text')
+        const data = {
+                id: id,
+                topic: topic.value,
+                detail: description.value,
+                text: text.value
+            }
+            // console.table(data);
+        fetch('/update-data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                Swal.fire({
+                    position: 'top-center',
+                    icon: 'success',
+                    title: 'แก้ไขรายการสำเร็จ',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                setTimeout(function() {
+                    window.location.href = "{{url_for('show', id=data[0])}}";
+                }, 1500);
+
+            })
+            .catch(error => console.error(error));
+    });
+
+    // delete library
+    // const deleteBtn = document.querySelectorAll('#delete-btn');
+    const deleteBtn = document.getElementById('delete-btn');
+    // deleteBtn.forEach(btn => {
+    //     btn.addEventListener('click', (e) => {
+
+    //     });
+    // })
+    $(deleteBtn).click(function(e) {
+        e.preventDefault();
+        const id = e.target.getAttribute('data-id');
+        Swal.fire({
+            title: 'คุณกำลังจะลบรายการ!',
+            text: 'คุณต้องการลบรายการที่: ' + id + '?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#204FE0',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ใช่ต้องการลบ!',
+            cancelButtonText: 'ไม่ต้องการลบ',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`/delete-data/${id}`, {
+                        method: 'DELETE'
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            Swal.fire({
+                                position: 'top-center',
+                                icon: 'success',
+                                title: 'ลบรายการสำเร็จ',
+                                showConfirmButton: false,
+                            })
+                            setTimeout(function() {
+                                window.location.href = "/library";
+                            }, 1500);
+
+                        } else {
+                            console.error('Error sending data:', response.status, response.statusText);
+                        }
+                    });
+            } else {
+                window.location.reload()
+            }
+        })
+    });
+</script>

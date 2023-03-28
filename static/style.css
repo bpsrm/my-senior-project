@@ -1,0 +1,371 @@
+@import url('https://fonts.googleapis.com/css2?family=Bai+Jamjuree:wght@400;600;700&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* noselect */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-family: 'Bai Jamjuree', sans-serif;
+}
+
+.navbar {
+    background-color: #fff;
+    box-shadow: 0px 4px 10px#999;
+}
+
+.start_text {
+    font-size: 48px;
+    font-weight: 600;
+}
+
+.img_banner {
+    margin: 100px auto;
+}
+
+.fa-angle-left {
+    font-size: 36px;
+    color: #204FE0;
+}
+
+.fa-bars {
+    font-size: 36px;
+    color: #204FE0;
+}
+
+.btn_launch {
+    background-color: #204FE0;
+    padding: 10px;
+    color: #fff;
+    font-size: 24px;
+    border: 5px solid #204FE0;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all .35s ease-in;
+}
+
+.btn_launch:hover {
+    background-color: #fff;
+    color: #204FE0;
+    border: 5px solid #204FE0;
+}
+
+footer {
+    border-top: 2px solid #999;
+    padding: 10px;
+    margin: 50px auto 10px auto;
+    /* height: 50px; */
+}
+
+.text_foot {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    color: #204FE0;
+}
+
+.btn_menu {
+    padding: 20px;
+    background-color: #fff;
+    border: 5px solid #204FE0;
+    font-size: 24px;
+    text-decoration: none;
+    color: #204FE0;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0px 4px 10px#999;
+    transition: all .35s ease-in;
+}
+
+.menu_1:hover {
+    background-color: #204FE0;
+    border: 5px solid #204FE0;
+    color: #fff;
+}
+
+.menu_2:hover {
+    background-color: #204FE0;
+    border: 5px solid #204FE0;
+    color: #fff;
+}
+
+.menu_3:hover {
+    background-color: #204FE0;
+    border: 5px solid #204FE0;
+    color: #fff;
+}
+
+.video_canvas {
+    height: 150px;
+    margin: 50px auto;
+    border: 5px solid #204FE0;
+}
+
+#text_fromLocal {
+    overflow-y: scroll;
+    height: 200px;
+    font-size: 16px;
+    text-align: center;
+    -ms-overflow-style: none;
+}
+
+#text_fromLocal-webkit-scrollbar {
+    display: none;
+}
+
+#text {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: left !important;
+    padding-bottom: 50px;
+}
+
+.btn_dropdown,
+.btn_dropdown:hover {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem auto;
+    background-color: #fff;
+    color: #204FE0;
+    border: 5px solid #204FE0;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 10px;
+    vertical-align: middle;
+}
+
+.dropdown-item:hover {
+    background-color: #204FE0 !important;
+    color: #fff !important;
+}
+
+.fa-caret-down:before {
+    font-size: 40px;
+    color: #204FE0;
+}
+
+.dropdown-item {
+    font-size: 24px !important;
+}
+
+.btn_start {
+    padding: 10px;
+    border: 5px solid #204FE0;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    color: #fff;
+    background-color: #204FE0;
+    transition: all .35s ease-in;
+    margin: 200px auto;
+}
+
+.btn_start:hover {
+    background-color: #fff;
+    border: 5px solid #204FE0;
+    color: #204FE0;
+}
+
+.btn_save {
+    background-color: #204FE0;
+    border: 5px solid #204FE0;
+    color: #fff;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    transition: all .35s ease-in;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.btn_back {
+    cursor: pointer;
+}
+
+.btn_save:hover {
+    background-color: #fff;
+    border: 5px solid #204FE0;
+    color: #204FE0;
+}
+
+.btn_cancle {
+    background-color: #fff;
+    border: 5px solid #204FE0;
+    padding: 10px;
+    color: #204FE0;
+    border-radius: 10px;
+    font-size: 24px;
+    font-weight: 600;
+    transition: all .35s ease-in;
+    text-decoration: none;
+}
+
+.form-label {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.custom-file-input {
+    width: 100%;
+    background-color: #204FE0;
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-size: 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 5px solid #204FE0;
+}
+
+.custom-file-input:hover {
+    transition: all .35s ease-in-out;
+    background-color: transparent;
+    border: 5px solid #204FE0;
+}
+
+.custom-file-input:hover span {
+    color: #204FE0;
+}
+
+.form-control {
+    font-size: 24px !important;
+    font-weight: 600;
+    border: 5px solid #999 !important;
+    border-radius: 10px !important;
+}
+
+.form-control:focus {
+    outline: none;
+    color: #999;
+    border: 5px solid #204FE0 !important;
+}
+
+.form-control::before {
+    outline: 5px solid #204FE0;
+}
+
+#text_save,
+#text_preview {
+    font-size: 18px;
+}
+
+.not_require {
+    font-size: 18px;
+}
+
+.btn_listen {
+    width: 100%;
+    background-color: #204FE0;
+    border: 5px solid #204FE0;
+    color: #fff;
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: all .35s ease-in;
+}
+
+.btn_listen:hover {
+    background-color: #fff;
+    border: 5px solid #204FE0;
+    color: #204FE0;
+}
+
+.text_re {
+    overflow-y: scroll;
+    height: 400px;
+    font-size: 36px;
+    text-align: center;
+    -ms-overflow-style: none;
+    border: 5px solid #204FE0;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.text_re::-webkit-scrollbar {
+    display: none;
+}
+
+.tone_text {
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+}
+
+.get_pdf {
+    font-size: 24px;
+}
+
+.card {
+    border: 5px solid #204FE0 !important;
+    border-radius: 10px !important;
+}
+
+.btn_show {
+    background-color: #204FE0;
+    border: 5px solid #204FE0;
+    padding: 10px;
+    color: #fff;
+    transition: all .35s ease-in;
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+.btn_show:hover {
+    background-color: #fff;
+    border: 5px solid #204FE0;
+    color: #204FE0;
+}
+
+.btn_edit {
+    background-color: #204FE0;
+    color: #fff;
+    border: 5px solid #204FE0;
+    border-radius: 10px;
+    font-size: 24px;
+    padding: 10px;
+    transition: all .35s ease-in;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.btn_edit:hover {
+    background-color: #fff;
+    color: #204FE0;
+    border: 5px solid #204FE0;
+}
+
+.btn_delete {
+    background-color: #fff;
+    border: 5px solid #204FE0;
+    color: #204FE0;
+    border-radius: 10px;
+    padding: 10px;
+    transition: all .35s ease-in;
+    font-size: 24px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#searchbar {
+    background-color: #fff;
+    color: #204FE0;
+    border: 5px solid #204FE0;
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 24px;
+}
+
+#searchbar::placeholder {
+    color: #204FE0;
+}

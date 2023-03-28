@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convert PDF file to Speech</title>
+
+    <!-- fav-icon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='/images/newlogo.png') }}" type="image/x-icon">
+    <!-- style.css -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- boostrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    />
+</head>
+
+<body>
+    <nav class="navbar fixed-top mb-5">
+        <div class="container-fluid mx-2">
+            <a class="navbar-brand" id="btn_back">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+            <div class="d-flex">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+    <div class="container pt-5">
+        <div class="row mt-5 text-center">
+            <h1 class="start_text pt-3">แปลงไฟล์ PDF</h1>
+            <p class="text-secondary pt-3">แปลงไฟล์เอกสาร PDF เป็นข้อความเพื่อจัดเก็บข้อมูล <br> ต่างๆใน “ห้องสมุดของคุณ” และสามารถ<br> ฟังเสียงย้อนหลังได้
+            </p>
+            <form action="/pdf_data" id="pdf_data" method="POST">
+                <div class="col-12">
+                    <p id="show_file" name="file_path" class="get_pdf text-start"></p>
+                    <hr class="mx-3">
+                    <h2 class="tone_text pb-2 text-center text-secondary">สามารถเลือกเสียงบรรยายได้จากปุ่มด้านล่างนี้</h2>
+                    <div class="dropdown">
+                        <a class="btn_dropdown p-3" role="button" id="dropdown_speech" data-bs-toggle="dropdown" aria-expanded="true">
+                      เลือกเสียงบรรยาย <i class="fa-solid fa-caret-down"></i>
+                    </a>
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdown_speech">
+                            <li class="dropdown-item w-100" onclick="setSpeaker(0)">เสียงผู้ชาย</li>
+                            <li class="dropdown-item w-100" onclick="setSpeaker(1)">เสียงผู้หญิง</li>
+                            <li class="dropdown-item w-100" onclick="setSpeaker(2)">เสียงเด็กผู้ชาย</li>
+                            <li class="dropdown-item w-100" onclick="setSpeaker(3)">เสียงเด็กผู้หญิง</li>
+                        </ul>
+                    </div>
+                    <audio id="audio" class="w-100 audio my-3" controls autoplay></audio>
+
+                    <div class="box_text mt-4">
+                        <h2 class="text-secondary" style="font-size: 18px;">ข้อความที่ได้จากการแปลงไฟล์เอกสาร PDF</h2>
+                        <p class="text_re" id="text" name="text">
+                            {% if info[0] %} {{ info[0] }} {% endif %}
+                        </p>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex flex-column">
+                            <button type="submit" class="mt-4 text-center btn_save" id="btn_save">จัดเก็บข้อมูลลง <br> "ห้องสมุดของฉัน"</button>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="d-flex justify-content-between align-items-center px-3">
+        <a class="navbar-brand">
+            <img src="{{ url_for('static', filename='images/newlogo.png') }}" alt="">
+        </a>
+        <p class="text_foot">© 2022 SNP65 , All Rights Reserved</p>
+    </footer>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13 " crossorigin="anonymous "></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+    $(document).ready(function() {
+        var text_pdf = document.getElementById("text").textContent;
+        let textToJSON = JSON.stringify(text_pdf);
+
+        async function play_wav(wav) {
+            const audioSource = document.getElementById("audio");
+            const result = await fetch(wav, {
+                headers: {
+                    "Apikey": "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy ",
+                },
+            });
+
+            const blob = await result.blob();
+            if (blob) {
+                audioSource.src = URL.createObjectURL(blob);
+            }
+        }
+
+        function sendAjaxRequest(speaker) {
+            var settings = {
+                url: "https://api.aiforthai.in.th/vaja9/synth_audiovisual ",
+                method: "POST ",
+                headers: {
+                    Apikey: "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy ",
+                    "Content-Type ": "application/json ",
+                },
+                data: JSON.stringify({
+                    input_text: textToJSON,
+                    speaker: speaker,
+                    phrase_break: 0,
+                    audiovisual: 0,
+                }),
+            };
+
+            $.ajax(settings).done(function(response) {
+                play_wav(response.wav_url);
+            });
+        }
+        sendAjaxRequest(0);
+    });
+
+    function setSpeaker(speaker) {
+        console.log(speaker)
+        sendAjaxRequest(speaker);
+    }
+
+    function sendAjaxRequest(speaker) {
+        var text_pdf = document.getElementById("text").textContent;
+        let textToJSON = JSON.stringify(text_pdf);
+
+        var settings = {
+            url: "https://api.aiforthai.in.th/vaja9/synth_audiovisual",
+            method: "POST",
+            headers: {
+                "Apikey": "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy",
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify({
+                input_text: textToJSON,
+                speaker: speaker,
+                phrase_break: 0,
+                audiovisual: 0,
+            }),
+        };
+
+        $.ajax(settings).done(function(response) {
+            play_wav(response.wav_url);
+        });
+    }
+
+    async function play_wav(wav) {
+        const audioSource = document.getElementById("audio");
+        const result = await fetch(wav, {
+            headers: {
+                "Apikey": "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy",
+            },
+        });
+
+        const blob = await result.blob();
+        if (blob) {
+            audioSource.src = URL.createObjectURL(blob);
+        }
+    }
+
+
+    $('.btn_voice, .btn_voice_secound').click(function() {
+        $('.btn_voice, .btn_voice_secound').removeClass('btn_active');
+        $(this).addClass('btn_active');
+    });
+</script>
+<script>
+    const fileName = "{{ info[1] }}";
+    const fileUrl = `/uploads/${fileName}`;
+    const linkHtml = `<strong>ชื่อไฟล์งาน: <a href="${fileUrl}" target="_blank" id="path_file"> {{ info[1] }}</a></strong>`;
+    document.getElementById('show_file').innerHTML = linkHtml;
+
+    //dropdown show list
+    const dropdownButton = document.querySelector('#dropdown_speech');
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    dropdownItems.forEach(item => {
+        $(item).click(function(e) {
+            e.preventDefault();
+            dropdownButton.textContent = item.textContent;
+        });
+
+    });
+
+    const btn_save = document.getElementById('btn_save')
+    $(btn_save).click(function(e) {
+        e.preventDefault();
+        const filePath = document.getElementById('show_file').textContent;
+        const text = document.getElementById('text').textContent;
+        let file_path = filePath.replace('ชื่อไฟล์งาน: ', '');
+        localStorage.setItem('text', text)
+        localStorage.setItem('filePath', file_path)
+        window.location.href = '/pdf_data'
+    });
+    const back_home = document.getElementById('btn_back')
+    $(back_home).click(function(e) {
+        e.preventDefault();
+        localStorage.removeItem('text')
+        localStorage.removeItem('filePath')
+        window.location.href = '/pdf_convert'
+    });
+</script>

@@ -1,0 +1,17 @@
+{% extends 'header-layout.html' %} {% block content %}
+<div class="container pt-5">
+    <div class="row mt-5">
+        <div class="col-12 mt-5 text-center d-flex justify-content-center flex-column">
+            <h1 class="start_text">VoiceBrary</h1>
+            <img src="{{ url_for('static', filename='images/banner_template.png') }}" alt="logo" class="mx-auto img-fluid w-25 img_banner">
+
+            <a href="/homepage" class="btn_launch mx-5">เริ่มต้นใช้งาน</a>
+
+            <p class="text-secondary mt-5">เว็บแอปพลิเคชันคลังหนังสือเสียงเพื่อช่วย <br>เหลือผู้ที่มีสายตาเลือนราง
+            </p>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
