@@ -80,25 +80,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 <script src="{{ url_for('static', filename='js/create-pdf.js') }}"></script>
 <script>
-    // const thaiMonths = [
-    //     'มกราคม', 'กุมภาพันธ์', 'มีนาคม',
-    //     'เมษายน', 'พฤษภาคม', 'มิถุนายน',
-    //     'กรกฎาคม', 'สิงหาคม', 'กันยายน',
-    //     'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
-    // ];
-
-    // const today = new Date();
-    // const monthIndex = today.getMonth();
-
-    // const thaiMonth = thaiMonths[monthIndex];
-
-    // const day = today.getDate();
-    // const year = today.getFullYear() + 543;
-
-    // const formattedDate = `รายการประจำวันที่ ${day} ${thaiMonth} ${year}`;
-
-    // document.getElementById('topic').value = formattedDate;
-
     $("#pdf-file-input").hide();
     $(".btn_save").hide();
     $("#pdf-file-input").change(function(e) {

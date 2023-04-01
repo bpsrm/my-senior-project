@@ -91,7 +91,7 @@
             const audioSource = document.getElementById("audio");
             const result = await fetch(wav, {
                 headers: {
-                    "Apikey": "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy ",
+                    "Apikey": "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy",
                 },
             });
 
@@ -103,11 +103,11 @@
 
         function sendAjaxRequest(speaker) {
             var settings = {
-                url: "https://api.aiforthai.in.th/vaja9/synth_audiovisual ",
-                method: "POST ",
+                url: "https://api.aiforthai.in.th/vaja9/synth_audiovisual",
+                method: "POST",
                 headers: {
-                    Apikey: "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy ",
-                    "Content-Type ": "application/json ",
+                    Apikey: "letBGyiaspJ9ERccDfEB5R4vKeCMKfQy",
+                    "Content-Type": "application/json",
                 },
                 data: JSON.stringify({
                     input_text: textToJSON,

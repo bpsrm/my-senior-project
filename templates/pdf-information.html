@@ -79,6 +79,26 @@
         localStorage.removeItem('filePath')
         window.location.href = '/pdf_convert'
     });
+
+    const thaiMonths = [
+        'มกราคม', 'กุมภาพันธ์', 'มีนาคม',
+        'เมษายน', 'พฤษภาคม', 'มิถุนายน',
+        'กรกฎาคม', 'สิงหาคม', 'กันยายน',
+        'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+    ];
+
+    const today = new Date();
+    const monthIndex = today.getMonth();
+
+    const thaiMonth = thaiMonths[monthIndex];
+
+    const day = today.getDate();
+    const year = today.getFullYear() + 543;
+
+    const formattedDate = `รายการประจำวันที่ ${day} ${thaiMonth} ${year}`;
+
+    document.getElementById('topic').value = formattedDate;
+
     const topic = document.getElementById('topic')
     const description = document.getElementById('description')
     const user = document.getElementById('name')
