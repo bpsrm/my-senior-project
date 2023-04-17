@@ -135,6 +135,18 @@ def library():
     conn.close()
     return render_template('library.html',data=result)
 
+@app.route('/search')
+def search():
+    query = request.args.get('query')
+    conn = mysql.connector.connect(**db_config)
+    cursor = conn.cursor()
+    
+    cursor.execute("SELECT * FROM library_pdf WHERE topic LIKE %s", ('%' + query + '%',))
+    results = cursor.fetchall()
+    
+    conn.close()
+    return jsonify(results)
+
 @app.route('/show/<int:id>')
 def show(id):
     data = retrieve_data(id)

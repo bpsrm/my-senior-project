@@ -28,7 +28,25 @@
                 <i class="fa-solid fa-angle-left"></i>
             </a>
             <div class="d-flex">
-                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-bars" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasRightLabel">เมนู</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <a href="/detect" class="">
+                            <p><i class="fa-solid fa-camera"></i> สแกนข้อความผ่านกล้อง </p>
+                        </a>
+                        <a href="/pdf_convert" class="">
+                            <p><i class="fa-solid fa-file-pdf"></i> แปลงไฟล์ PDF เป็นข้อความ</p>
+                        </a>
+                        <a href="/library" class="">
+                            <p><i class="fa-solid fa-book"></i> ห้องสมุดของคุณ</p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>

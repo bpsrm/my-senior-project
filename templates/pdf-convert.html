@@ -28,7 +28,25 @@
                 <i class="fa-solid fa-angle-left"></i>
             </a>
             <div class="d-flex">
-                <i class="fa-solid fa-bars"></i>
+                <i class="fa-solid fa-bars" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 id="offcanvasRightLabel">เมนู</h5>
+                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <a href="/detect" class="">
+                            <p><i class="fa-solid fa-camera"></i> สแกนข้อความผ่านกล้อง </p>
+                        </a>
+                        <a href="/pdf_convert" class="">
+                            <p><i class="fa-solid fa-file-pdf"></i> แปลงไฟล์ PDF เป็นข้อความ</p>
+                        </a>
+                        <a href="/library" class="">
+                            <p><i class="fa-solid fa-book"></i> ห้องสมุดของคุณ</p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -39,18 +57,6 @@
                 <p class="text-secondary pt-3">แปลงไฟล์เอกสาร PDF เป็นข้อความเพื่อจัดเก็บข้อมูล <br> ต่างๆใน “ห้องสมุดของคุณ” และสามารถ<br> ฟังเสียงย้อนหลังได้
                 </p>
                 <form action="{{ url_for('convert') }}" method="post" enctype="multipart/form-data" class="text-start">
-                    <!-- <div class="mb-3">
-                        <label for="topic" class="form-label">หัวข้อ</label>
-                        <input type="text" class="form-control" id="topic" name="topic">
-                    </div>
-                    <div class="mb-3">
-                        <label for="description" class="form-label">รายละเอียด (ไม่บังคับ)</label>
-                        <input type="text" class="form-control" id="description" name="description">
-                    </div>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">จัดทำโดย (ชื่อของคุณ)</label>
-                        <input type="text" class="form-control" id="name" name="name">
-                    </div> -->
                     <div class="mt-3">
                         <label for="pdf-file-input" class="custom-file-input">
                         <span>เพิ่มไฟล์เอกสาร PDF</span>
@@ -76,6 +82,8 @@
         <p class="text_foot">© 2022 SNP65 , All Rights Reserved</p>
     </footer>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
 <script src="{{ url_for('static', filename='js/create-pdf.js') }}"></script>
