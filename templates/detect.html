@@ -36,7 +36,7 @@
 
     <div class="container pt-5">
         <div class="row mt-5 text-center">
-            <div class="col-12">
+            <div class="col-12 col-lg-6 mx-auto">
                 <h1 class="start_text pt-3">สแกนข้อความ</h1>
                 <p class="text-secondary pt-3">สแกนข้อความจากในกล้องของผู้ใช้งาน เพื่อค้นหาข้อความที่จะนำมาอ่านให้ผู้ใช้งานฟัง</p>
                 <button class="btn_start w-100">เริ่มต้นการสแกนข้อความ</button>
@@ -127,7 +127,7 @@
             }).then(response => response.json()).then(data => {
                 if (data.status !== 'success') {
                     Swal.fire({
-                        position: 'top-end',
+                        position: 'top',
                         icon: 'error',
                         title: 'ไม่สามารถค้นหาข้อความได้',
                         text: 'กรุณาลองอีกครั้งใน 5 วินาที',

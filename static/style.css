@@ -356,6 +356,11 @@ footer {
     text-decoration: none;
 }
 
+#result_search {
+    font-size: 24px;
+    padding-top: 20px;
+}
+
 #searchbar {
     background-color: #fff;
     color: #204FE0;
