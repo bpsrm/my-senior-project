@@ -63,19 +63,19 @@
                     <video id="video" autoplay class="w-100 video_detect"></video>
 
                     <canvas id="canvas" class="w-100 d-none"></canvas>
-                    <div class="dropdown mt-3">
+                    <!-- <div class="dropdown mt-3">
                         <a class="btn_dropdown p-3" href="#" role="button" id="dropdown_speech" data-bs-toggle="dropdown" aria-expanded="false">
                           เลือกเสียงบรรยาย <i class="fa-solid fa-caret-down"></i>
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdown_speech">
-                            <li class="dropdown-item w-100">เสียงผู้ชาย</li>
-                            <li class="dropdown-item w-100">เสียงผู้หญิง</li>
-                            <li class="dropdown-item w-100">เสียงเด็กผู้ชาย</li>
-                            <li class="dropdown-item w-100">เสียงเด็กผู้หญิง</li>
+                            <li class="dropdown-item w-100" onclick="setSpeaker(0)">เสียงผู้ชาย</li>
+                            <li class="dropdown-item w-100" onclick="setSpeaker(1)">เสียงผู้หญิง</li>
+                            <li class="dropdown-item w-100" onclick="setSpeaker(2)">เสียงเด็กผู้ชาย</li>
+                            <li class="dropdown-item w-100" onclick="setSpeaker(3)">เสียงเด็กผู้หญิง</li>
                         </ul>
-                    </div>
-                    <audio id="audio" class="w-100" controls autoplay></audio>
+                    </div> -->
+                    <audio id="audio" class="w-100 mt-4" controls autoplay></audio>
                 </div>
 
             </div>
@@ -182,18 +182,16 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     playAudio(text);
+                    // localStorage.setItem("text", text)
                 }
             });
         }
     });
 
-
-
-
-
     function playAudio(text) {
 
-        // setup api parameter
+        let newText = localStorage.getItem("text")
+            // setup api parameter
         let urlAPI = 'https://api.aiforthai.in.th/vaja9/synth_audiovisual';
         var setting_API = {
             url: urlAPI,
@@ -211,6 +209,7 @@
         };
 
         async function play_wav(wav) {
+            $(".btn_listen").hide()
             const audioSource = document.getElementById("audio");
             const result = await fetch(wav, {
                 headers: {
@@ -251,6 +250,7 @@
                     text: 'กรุณาลองอีกครั้งในภายหลัง',
                     allowOutsideClick: false,
                 });
+                localStorage.removeItem("text")
             }
         }).fail(function(jqXHR, textStatus) {
             Swal.close();
@@ -271,10 +271,11 @@
         function onFinished() {
             const btnListen = document.createElement("button");
             let audioSRC = document.getElementById('audio')
-            btnListen.className = "btn_listen w-100";
+            btnListen.className = "btn_listen w-100 mt-3";
             btnListen.textContent = "เสร็จสิ้นการฟังเสียง";
             $(".show_detect").append(btnListen);
             btnListen.addEventListener("click", function() {
+                // localStorage.removeItem("text")
                 audioSRC.src = ""
                 $(".btn_listen").hide();
                 window.location.reload();

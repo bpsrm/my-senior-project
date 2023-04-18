@@ -34,6 +34,15 @@
     font-weight: 600;
 }
 
+.offcanvas-header {
+    padding: 50px 1rem !important;
+}
+
+
+/* .offcanvas-body {
+    padding: 50px 1rem !important;
+} */
+
 .offcanvas-body p {
     background-color: #204FE0;
     color: #fff;
