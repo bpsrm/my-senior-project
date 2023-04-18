@@ -64,6 +64,10 @@
     color: #204FE0;
 }
 
+.menu_bar {
+    cursor: pointer;
+}
+
 .fa-bars {
     font-size: 36px;
     color: #204FE0;
