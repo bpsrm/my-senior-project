@@ -1,5 +1,4 @@
 import os
-import bcrypt
 from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory, session
 import cv2
 from PyPDF2 import PdfReader
@@ -44,22 +43,6 @@ def homepage():
 def detect():
     return render_template('detect.html')
 
-# @app.route('/detect-text', methods=['POST'])
-# def detect_text():
-#     data = request.json
-#     image_data = data['imageData'].split(',')[1].encode('utf-8')
-
-#     img = cv2.imdecode(np.frombuffer(base64.b64decode(image_data), np.uint8), cv2.IMREAD_COLOR)
-#     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-#     text = pytesseract.image_to_string(gray)
-#     # text = pytesseract.image_to_string(gray, lang=['eng', 'tha'])
-#     if text:
-#         retval, buffer = cv2.imencode('.png', img)
-#         img_base64 = base64.b64encode(buffer).decode('utf-8')
-#         return jsonify({'status': 'success', 'text': text, 'imageData': img_base64})
-#     else:
-#         return jsonify({'status': 'error', 'message': 'Text cannot be read'})
 @app.route('/detect-text', methods=['POST'])
 def detect_text():
     data = request.json
