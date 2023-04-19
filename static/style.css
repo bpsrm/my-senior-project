@@ -166,8 +166,8 @@ footer {
 #text {
     font-size: 24px;
     font-weight: 600;
-    text-align: left !important;
-    padding-bottom: 50px;
+    text-align: center !important;
+    padding: 50px 20px;
 }
 
 .btn_dropdown,
@@ -327,9 +327,7 @@ footer {
     overflow-y: scroll;
     height: 400px;
     font-size: 36px;
-    text-align: center;
     -ms-overflow-style: none;
-    border: 5px solid #204FE0;
     border-radius: 10px;
     padding: 10px;
 }
