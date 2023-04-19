@@ -1,4 +1,5 @@
 import os
+import bcrypt
 from flask import Flask, request, jsonify, render_template, redirect, url_for, send_from_directory, session
 import cv2
 from PyPDF2 import PdfReader
