@@ -110,11 +110,14 @@
         const topic = document.getElementById('topic')
         const description = document.getElementById('description')
         const text = document.getElementById('text')
+        const name = document.getElementById('name')
+
         const data = {
                 id: id,
                 topic: topic.value,
                 detail: description.value,
-                text: text.value
+                text: text.value,
+                name: name.value
             }
             // console.table(data);
         fetch('/update-data', {

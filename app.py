@@ -182,10 +182,11 @@ def update_data():
         detail = data['detail']
         id = data['id']
         text = data['text']
+        name = data['name']
 
         conn = mysql.connector.connect(**db_config)
         cur = conn.cursor()
-        cur.execute("UPDATE library_pdf SET topic = %s, detail = %s, text_content = %s WHERE id = %s", (topic, detail, text, id,))
+        cur.execute("UPDATE library_pdf SET topic = %s, detail = %s, text_content = %s, user_created = %s WHERE id = %s", (topic, detail, text, name, id,))
         conn.commit()
 
         return jsonify({'success': True, 'message': 'Data updated successfully!'})
