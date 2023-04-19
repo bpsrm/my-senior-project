@@ -119,48 +119,50 @@
         const context = canvas.getContext('2d');
 
         navigator.mediaDevices.getUserMedia({
-            video: true
+            video: {
+                facingMode: {
+                    exact: 'environment'
+                }
+            }
         }).then(stream => {
             video.srcObject = stream;
             video.play();
-
-            function detectText() {
-                context.drawImage(video, 0, 0, canvas.width, canvas.height);
-                const imageData = canvas.toDataURL("image/png");
-
-                fetch("/detect-text", {
-                        method: "POST",
-                        body: JSON.stringify({
-                            imageData: imageData,
-                        }),
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    })
-                    .then((response) => response.json())
-                    .then((data) => {
-                        if (data.status !== "success") {
-                            clearInterval(intervalID);
-                            handleFailure();
-                        } else {
-                            clearInterval(intervalID);
-                            handleSuccess(data.text);
-                        }
-                    })
-                    .catch((error) => {
-                        clearInterval(intervalID);
-                        console.error("Could not detect text:", error);
-                    });
-
-
-            }
 
         }).catch(error => console.error('Could not access camera:', error));
 
         // start detecting text
         intervalID = setInterval(detectText, 5000);
 
+        function detectText() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL("image/png");
 
+            fetch("/detect-text", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        imageData: imageData,
+                    }),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status !== "success") {
+                        clearInterval(intervalID);
+                        handleFailure();
+                    } else {
+                        clearInterval(intervalID);
+                        handleSuccess(data.text);
+                    }
+                })
+                .catch((error) => {
+                    clearInterval(intervalID);
+                    console.error("Could not detect text:", error);
+                });
+
+
+        }
 
         function handleFailure() {
             Swal.fire({
