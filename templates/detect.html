@@ -60,7 +60,7 @@
                 <button class="btn_start w-100">เริ่มต้นการสแกนข้อความ</button>
                 <div class="show_detect">
                     <h5 id="result" class="w-100 py-5 fw-bold">เริ่มต้นการตรวจจับข้อความจากกล้องของคุณ</h5>
-                    <video id="video" autoplay class="w-100 video_detect"></video>
+                    <video id="video" playsinline autoplay class="w-100 video_detect"></video>
 
                     <canvas id="canvas" class="w-100 d-none"></canvas>
                     <!-- <div class="dropdown mt-3">
@@ -124,40 +124,43 @@
             video.srcObject = stream;
             video.play();
 
+            function detectText() {
+                context.drawImage(video, 0, 0, canvas.width, canvas.height);
+                const imageData = canvas.toDataURL("image/png");
+
+                fetch("/detect-text", {
+                        method: "POST",
+                        body: JSON.stringify({
+                            imageData: imageData,
+                        }),
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.status !== "success") {
+                            clearInterval(intervalID);
+                            handleFailure();
+                        } else {
+                            clearInterval(intervalID);
+                            handleSuccess(data.text);
+                        }
+                    })
+                    .catch((error) => {
+                        clearInterval(intervalID);
+                        console.error("Could not detect text:", error);
+                    });
+
+
+            }
+
         }).catch(error => console.error('Could not access camera:', error));
 
         // start detecting text
         intervalID = setInterval(detectText, 5000);
 
-        function detectText() {
-            // get image data and send to python file to check text
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageData = canvas.toDataURL("image/png");
 
-            fetch("/detect-text", {
-                    method: "POST",
-                    body: JSON.stringify({
-                        imageData: imageData,
-                    }),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.status !== "success") {
-                        clearInterval(intervalID);
-                        handleFailure();
-                    } else {
-                        clearInterval(intervalID);
-                        handleSuccess(data.text);
-                    }
-                })
-                .catch((error) => {
-                    clearInterval(intervalID);
-                    console.error("Could not detect text:", error);
-                });
-        }
 
         function handleFailure() {
             Swal.fire({
