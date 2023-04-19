@@ -123,6 +123,7 @@
         }).then(stream => {
             video.srcObject = stream;
             video.play();
+
         }).catch(error => console.error('Could not access camera:', error));
 
         // start detecting text
