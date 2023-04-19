@@ -14,7 +14,7 @@ import string
 app = Flask(__name__)
 app.secret_key = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(16))
 
-
+# setup database information
 db_config = {
     'host': 'localhost',
     'user': 'root',
@@ -22,28 +22,34 @@ db_config = {
     'database': 'snp65_project'
 }
 
+# route for upload file to folder
 @app.route('/uploads/<filename>')
 def serve_file(filename):
     uploads_dir = os.path.join(os.path.dirname(app.instance_path), './uploads/')
     return send_from_directory(directory=uploads_dir, path=filename)
 
+# route for upload file to folder (config path)
 @app.route('/uploads/ <filename>')
 def getImage(filename):
     uploads_dir = os.path.join(os.path.dirname(app.instance_path), './uploads/')
     return send_from_directory(directory=uploads_dir, path=filename)
 
+# route to index.html (start page)
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# route for homepage
 @app.route('/homepage')
 def homepage():
     return render_template('homepage.html')
 
+# route for function detect text in camera
 @app.route('/detect')
 def detect():
     return render_template('detect.html')
 
+# route for get image data from detect.html and send back text in image
 @app.route('/detect-text', methods=['POST'])
 def detect_text():
     data = request.json
@@ -60,11 +66,12 @@ def detect_text():
     else:
         return jsonify({'status': 'error', 'message': 'Text cannot be read'})
 
-
+# route for convert pdf file to speech
 @app.route('/pdf_convert')
 def create():
     return render_template('pdf-convert.html')
 
+# route for get pdf file and get filename and convert pdf file to text
 @app.route('/convert', methods=['POST'])
 def convert():
     uploaded_file = request.files['pdf_file']
@@ -83,6 +90,7 @@ def convert():
 
     return render_template('create.html')
 
+# function for extract text from pdf file
 def extract_text(pdf_file):
     with open(pdf_file, 'rb') as f:
         pdf_reader = PdfReader(f)
@@ -93,11 +101,12 @@ def extract_text(pdf_file):
             text += page.extract_text()
         return text
 
+# route for get information from pdf file (filename and text from extract_text function)
 @app.route('/pdf_data')
 def pdfData():
     return render_template('pdf-information.html')
 
-
+# route for get information from user create and save to database
 @app.route('/save', methods=['POST'])
 def save():
 
@@ -123,6 +132,7 @@ def save():
     
     return jsonify(success)
 
+# route for library and get information from database
 @app.route('/library')
 def library():
     conn = mysql.connector.connect(**db_config)
@@ -136,23 +146,13 @@ def library():
     conn.close()
     return render_template('library.html',data=result)
 
-@app.route('/search')
-def search():
-    query = request.args.get('query')
-    conn = mysql.connector.connect(**db_config)
-    cursor = conn.cursor()
-    
-    cursor.execute("SELECT * FROM library_pdf WHERE topic LIKE %s", ('%' + query + '%',))
-    results = cursor.fetchall()
-    
-    conn.close()
-    return jsonify(results)
-
+# route for show specific pdf file information from database
 @app.route('/show/<int:id>')
 def show(id):
     data = retrieve_data(id)
     return render_template('show-pdf.html', row=data)
 
+# function for get id specific pdf file from database
 def retrieve_data(id):
     try:
         conn = mysql.connector.connect(**db_config)
@@ -167,11 +167,13 @@ def retrieve_data(id):
             conn.close()
     return row
 
+# route for edit information specific pdf file
 @app.route('/edit/<int:id>')
 def edit(id):
     data = retrieve_data(id)
     return render_template('edit-library.html', data=data)
 
+# route for update information specific pdf file
 @app.route('/update-data', methods=['POST'])
 def update_data():
     try:
@@ -194,6 +196,7 @@ def update_data():
         if conn:
             conn.close()
 
+# route for delete specific pdf file
 @app.route('/delete-data/<int:id>', methods=['DELETE'])
 def delete_data(id):
     try:
@@ -213,5 +216,3 @@ def delete_data(id):
 
 if __name__ == '__main__':
     app.run(debug=True)
-# if __name__ == '__main__':
-#     app.run(debug=False)
