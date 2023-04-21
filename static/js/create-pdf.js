@@ -8,7 +8,6 @@ $pdfFileInput.on("change", function() {
 
   const fileReader = new FileReader();
 
-
   fileReader.onload = function() {
 
     const arrayBuffer = fileReader.result;
