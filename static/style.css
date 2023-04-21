@@ -18,6 +18,54 @@
     box-shadow: 0px 4px 10px#999;
 }
 
+/* .audio-player {
+    position: relative;
+}
+  
+.audio-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.audio-repeat {
+    margin-right: auto;
+}
+
+.audio-play {
+    margin: 0 20px;
+}
+
+.audio-volume {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.audio-volume-slider {
+    margin-left: 10px;
+    -webkit-appearance: none;
+    height: 5px;
+    width: 50px;
+    background: #ddd;
+    border-radius: 2.5px;
+    outline: none;
+}
+
+.audio-volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    cursor: pointer;
+} */
+
 #offcanvasRightLabel {
     font-size: 24px;
     color: #204FE0;
@@ -37,11 +85,6 @@
 .offcanvas-header {
     padding: 50px 1rem !important;
 }
-
-
-/* .offcanvas-body {
-    padding: 50px 1rem !important;
-} */
 
 .offcanvas-body p {
     background-color: #204FE0;

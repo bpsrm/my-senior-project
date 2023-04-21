@@ -64,6 +64,16 @@
 
                     <canvas id="canvas" class="w-100 d-none"></canvas>
                     <audio id="audio" class="w-100 mt-4" controls autoplay></audio>
+                    <!-- <div class="audio-player">
+                        <audio id="audio" class="w-100 mt-4" controls autoplay></audio>
+                        <div class="audio-controls">
+                          <button class="audio-repeat">Repeat</button>
+                          <button class="audio-play">Play</button>
+                          <div class="audio-volume">
+                            <input type="range" class="audio-volume-slider" min="0" max="1" step="0.1" value="1">
+                          </div>
+                        </div>
+                    </div> -->
                 </div>
 
             </div>
@@ -270,22 +280,56 @@
             }, 3000);
         });
 
+        let isButtonAppended = false;
+
         function onFinished() {
             const btnListen = document.createElement("button");
             let audioSRC = document.getElementById('audio')
             btnListen.className = "btn_listen w-100 mt-3";
             btnListen.textContent = "เสร็จสิ้นการฟังเสียง";
-            $(".show_detect").append(btnListen);
+            const showDetect = document.querySelector(".show_detect");
+            if (!isButtonAppended) {
+                showDetect.appendChild(btnListen);
+                isButtonAppended = true;
+            } else {
+                $(".btn_listen").show();
+            }
             btnListen.addEventListener("click", function() {
-                // localStorage.removeItem("text")
                 audioSRC.src = ""
                 $(".btn_listen").hide();
+                isButtonAppended = false;
                 window.location.reload();
             });
-
         }
 
     }
 </script>
+<!-- <script>
+    const audio = document.getElementById('audio');
+    const audioRepeatBtn = document.querySelector('.audio-repeat');
+    const audioPlayBtn = document.querySelector('.audio-play');
+    const audioVolumeSlider = document.querySelector('.audio-volume-slider');
 
+    audioRepeatBtn.addEventListener('click', () => {
+        audio.play();
+    });
+
+    audioPlayBtn.addEventListener('click', () => {
+        if (audio.paused) {
+            audio.play();
+            audioPlayBtn.textContent = 'Pause';
+        } else {
+            audio.pause();
+            audioPlayBtn.textContent = 'Play';
+        }
+    });
+
+    audio.addEventListener('ended', () => {
+        audioPlayBtn.textContent = 'Play';
+    });
+
+    audioVolumeSlider.addEventListener('input', () => {
+        audio.volume = audioVolumeSlider.value;
+    });
+</script> -->
 </html>
