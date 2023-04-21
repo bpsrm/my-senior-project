@@ -1,66 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>VoiceBrary Web Application</title>
 
     <!-- fav-icon -->
-    <link rel="shortcut icon" href="{{ url_for('static', filename='/images/newlogo.png') }}" type="image/x-icon">
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='/images/newlogo.png') }}"
+      type="image/x-icon"
+    />
     <!-- style.css -->
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
 
     <!-- boostrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+      integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- fontawesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+      integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
     />
-</head>
+  </head>
 
-
-<body>
+  <body>
     <nav class="navbar fixed-top mb-5">
-        <div class="container-fluid mx-2">
-            <a href="/homepage" class="navbar-brand">
-                <img src="{{ url_for('static', filename='images/newlogo.png') }}" alt="">
-            </a>
-            <div class="d-flex menu_bar">
-                <i class="fa-solid fa-bars" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+      <div class="container-fluid mx-2">
+        <a href="/homepage" class="navbar-brand">
+          <img
+            src="{{ url_for('static', filename='images/newlogo.png') }}"
+            alt=""
+          />
+        </a>
+        <div class="d-flex menu_bar">
+          <i
+            class="fa-solid fa-bars"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasRight"
+            aria-controls="offcanvasRight"
+          ></i>
 
-                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-                    <div class="offcanvas-header">
-                        <h5 id="offcanvasRightLabel">เมนู</h5>
-                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-                    <div class="offcanvas-body">
-                        <a href="/detect" class="">
-                            <p><i class="fa-solid fa-camera"></i> สแกนข้อความผ่านกล้อง </p>
-                        </a>
-                        <a href="/pdf_convert" class="">
-                            <p><i class="fa-solid fa-file-pdf"></i> แปลงไฟล์ PDF เป็นข้อความ</p>
-                        </a>
-                        <a href="/library" class="">
-                            <p><i class="fa-solid fa-book"></i> ห้องสมุดของคุณ</p>
-                        </a>
-                    </div>
-                </div>
+          <div
+            class="offcanvas offcanvas-end"
+            tabindex="-1"
+            id="offcanvasRight"
+            aria-labelledby="offcanvasRightLabel"
+          >
+            <div class="offcanvas-header">
+              <h5 id="offcanvasRightLabel">เมนู</h5>
+              <button
+                type="button"
+                class="btn-close text-reset"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+              ></button>
             </div>
+            <div class="offcanvas-body">
+              <a href="/detect" class="">
+                <p><i class="fa-solid fa-camera"></i> สแกนข้อความผ่านกล้อง</p>
+              </a>
+              <a href="/pdf_convert" class="">
+                <p>
+                  <i class="fa-solid fa-file-pdf"></i> แปลงไฟล์ PDF เป็นข้อความ
+                </p>
+              </a>
+              <a href="/library" class="">
+                <p><i class="fa-solid fa-book"></i> ห้องสมุดของคุณ</p>
+              </a>
+            </div>
+          </div>
         </div>
+      </div>
     </nav>
     {% block content %} {% endblock %}
     <footer class="d-flex justify-content-between align-items-center px-3">
-        <a class="navbar-brand">
-            <img src="{{ url_for('static', filename='images/newlogo.png') }}" alt="">
-        </a>
-        <p class="text_foot">© 2022 SNP65 , All Rights Reserved</p>
+      <a class="navbar-brand">
+        <img
+          src="{{ url_for('static', filename='images/newlogo.png') }}"
+          alt=""
+        />
+      </a>
+      <p class="text_foot">© 2022 SNP65 , All Rights Reserved</p>
     </footer>
-</body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
+  </body>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"
+    integrity="sha512-pumBsjNRGGqkPzKHndZMaAG+bir374sORyzM3uulLV14lN5LyykqNk8eEeUlUkB3U0M4FApyaHraT65ihJhDpQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+  ></script>
 </html>

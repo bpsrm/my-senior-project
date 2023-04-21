@@ -88,7 +88,7 @@ def convert():
         ]
         return render_template('convert.html', info=data)
 
-    return render_template('create.html')
+    return render_template('pdf-convert.html')
 
 # function for extract text from pdf file
 def extract_text(pdf_file):
