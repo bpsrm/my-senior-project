@@ -10,6 +10,9 @@ import base64
 import pytesseract
 import random
 import string
+# new import dependency
+from werkzeug.utils import secure_filename
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(16))
@@ -77,11 +80,20 @@ def convert():
     uploaded_file = request.files['pdf_file']
 
     if uploaded_file.filename != '':
-        path_file = os.path.join(os.getcwd(), 'uploads', uploaded_file.filename)
+        # get datetime function
+        now = datetime.now()
+        # setting date format
+        current_time = now.strftime("%Y-%m-%d")
+
+        # filename = os.path.basename(filename)
+        filename = current_time + '_' + secure_filename(uploaded_file.filename)
+
+        path_file = os.path.join(os.getcwd(), 'uploads', filename)
 
         uploaded_file.save(path_file)
+
         text = extract_text(path_file)
-        filename = os.path.basename(path_file)
+
         data = [
             text,
             filename,

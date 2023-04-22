@@ -96,6 +96,7 @@
           ต่างๆใน “ห้องสมุดของคุณ” และสามารถ<br />
           ฟังเสียงย้อนหลังได้
         </p>
+        <!-- <h1>Datatime {{ info[2] }}</h1> -->
         <form action="/pdf_data" id="pdf_data" method="POST">
           <div class="col-12">
             <p id="show_file" name="file_path" class="get_pdf text-start"></p>
@@ -295,6 +296,7 @@
       localStorage.setItem("filePath", file_path);
       window.location.href = "/pdf_data";
     });
+
     const back_home = document.getElementById("btn_back");
     $(back_home).click(function (e) {
       e.preventDefault();
