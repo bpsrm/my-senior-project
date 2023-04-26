@@ -85,10 +85,10 @@ def convert():
             # setting date format (Date)
         # current_time = now.strftime("%Y%m%d")
             # setting date format (Date,Time)
-        current_time = now.strftime("%Y%m%d-%H-%M-%S")
+        current_time = now.strftime("%Y-%m-%d_%H:%M:%S")
 
         # filename = os.path.basename(filename)
-        filename = current_time + '_' + secure_filename(uploaded_file.filename)
+        filename = current_time + '-' + secure_filename(uploaded_file.filename)
 
         path_file = os.path.join(os.getcwd(), 'uploads', filename)
 
