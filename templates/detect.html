@@ -129,7 +129,6 @@
         })
         .catch(error => {
             if (error instanceof OverconstrainedError && error.constraint === 'facingMode') {
-                // If environment mode is not supported, try to access user mode
                 navigator.mediaDevices.getUserMedia({
                     video: {
                         facingMode: {
@@ -147,28 +146,6 @@
             }
         });
 
-
-        // if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-        //     navigator.mediaDevices.getUserMedia({
-        //         video: {
-        //         facingMode: {
-        //             exact: 'environment'
-        //         }
-        //         }
-        //     }).then(stream => {
-        //         video.srcObject = stream;
-        //         video.play();
-        //     }).catch(error => console.error('Could not access camera:', error));
-        // } else {
-        //     navigator.mediaDevices.getUserMedia({
-        //         video: true
-        //     }).then(stream => {
-        //         video.srcObject = stream;
-        //         video.play();
-        //     }).catch(error => console.error('Could not access camera:', error));
-        // }
-
-        // start detecting text
         intervalID = setInterval(detectText, 5000);
 
         function detectText() {
