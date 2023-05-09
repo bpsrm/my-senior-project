@@ -116,25 +116,57 @@
         const canvas = document.getElementById('canvas');
         const context = canvas.getContext('2d');
 
-        if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-            navigator.mediaDevices.getUserMedia({
-                video: {
+        navigator.mediaDevices.getUserMedia({
+            video: {
                 facingMode: {
-                    exact: 'environment'
+                    ideal: 'environment'
                 }
-                }
-            }).then(stream => {
-                video.srcObject = stream;
-                video.play();
-            }).catch(error => console.error('Could not access camera:', error));
-        } else {
-            navigator.mediaDevices.getUserMedia({
-                video: true
-            }).then(stream => {
-                video.srcObject = stream;
-                video.play();
-            }).catch(error => console.error('Could not access camera:', error));
-        }
+            }
+        })
+        .then(stream => {
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(error => {
+            if (error instanceof OverconstrainedError && error.constraint === 'facingMode') {
+                // If environment mode is not supported, try to access user mode
+                navigator.mediaDevices.getUserMedia({
+                    video: {
+                        facingMode: {
+                            ideal: 'user'
+                        }
+                    }
+                })
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(error => console.error('Could not access camera:', error));
+            } else {
+                console.error('Could not access camera:', error);
+            }
+        });
+
+
+        // if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        //     navigator.mediaDevices.getUserMedia({
+        //         video: {
+        //         facingMode: {
+        //             exact: 'environment'
+        //         }
+        //         }
+        //     }).then(stream => {
+        //         video.srcObject = stream;
+        //         video.play();
+        //     }).catch(error => console.error('Could not access camera:', error));
+        // } else {
+        //     navigator.mediaDevices.getUserMedia({
+        //         video: true
+        //     }).then(stream => {
+        //         video.srcObject = stream;
+        //         video.play();
+        //     }).catch(error => console.error('Could not access camera:', error));
+        // }
 
         // start detecting text
         intervalID = setInterval(detectText, 5000);
