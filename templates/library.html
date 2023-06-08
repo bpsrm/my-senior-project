@@ -58,15 +58,9 @@
             </p>
             <div class="col-12">
                 <input type="text" name="search" id="searchbar" onkeyup="search_topic()" placeholder="ค้นหาหัวข้อของรายการ">
-                <p id="result_search"></p>
+                <div id="result_search"></div>
 
-                <!-- <form id="search-form">
-                    <input type="text" name="query" placeholder="Search...">
-                    <button type="submit">Search</button>
-                </form>
-                <p id="result_search"></p> -->
-                <div class="row justify-content-center">
-
+                <div class="row justify-content-start">
                     {% for row in data %}
                     <div class="col-12 col-lg-3 data_set" data-topic="{{ row[1] }}">
                         <div class="card p-3 my-2 w-100">
@@ -78,21 +72,19 @@
                             <h5 id="subtitle" class="text-start text-secondary">รายละเอียด: {{ row[2] }}</h5>
 
                             <div class="card-body p-0 pb-2 show_content">
-                                <p id="file_name">{{row[4]}}</p>
+                                <img class="preview_pdf w-50" id="preview_image" src="" alt="">
+                                <p class="d-none" id="file_name">{{row[4]}}</p>
                             </div>
 
                             <div class="created_by text-start">
                                 <h5 id="created_by" class="text-secondary py-3">จัดทำโดย: {{row[5]}}</h5>
                             </div>
                             <a href="{{ url_for('show', id=row[0]) }}" class="btn_show w-100">รายละเอียด</a>
-
                         </div>
-
                     </div>
                     {% endfor %}
                 </div>
             </div>
-
         </div>
     </div>
     <footer class="d-flex justify-content-between align-items-center px-3">
@@ -126,6 +118,7 @@
 
         if (!found) {
             result.style.display = "block";
+            result.classList.add('alert', 'alert-danger', 'mt-3');
             result.textContent = "ไม่พบหัวข้อของรายการ";
         } else {
             result.style.display = "none";
@@ -139,12 +132,13 @@
         const fileName = fileNameElement.innerHTML;
         const fileUrl = `/uploads/${fileName}`;
         const canvasId = `canvas-${fileName}`;
-        const canvasHtml = `<canvas class="preview_pdf" style="width: 100%;" id="${canvasId}"></canvas>`;
-
-        // Replace file name element content with canvas element
-        const cardBodyElement = fileNameElement.closest('.card').querySelector('.card-body.show_content');
-        cardBodyElement.innerHTML = canvasHtml;
-
+        // const canvasHtml = `<canvas class="preview_pdf" style="width: 100%;" id="${canvasId}"></canvas>`;
+        
+        // const cardBodyElement = fileNameElement.closest('.card').querySelector('.card-body.show_content');
+        const imageElement = fileNameElement.closest('.card').querySelector('.preview_pdf');
+        imageElement.src = fileUrl;
+        // cardBodyElement.innerHTML = canvasHtml;
+       
         // Get canvas element
         const canvas = document.getElementById(canvasId);
 
@@ -153,11 +147,10 @@
             // Get first page of PDF file
             pdf.getPage(1).then((page) => {
                 const scale = 1.5;
-                const viewport = page.getViewport({
-                    scale: scale
-                });
+                const viewport = page.getViewport({ scale });
 
-                // Prepare canvas context
+                // Prepare canvas element
+                const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
@@ -165,10 +158,15 @@
                 // Render PDF page into canvas
                 const renderContext = {
                     canvasContext: context,
-                    viewport: viewport
+                    viewport,
                 };
-                page.render(renderContext);
+                page.render(renderContext).promise.then(() => {
+                    const imageDataURL = canvas.toDataURL();
+                    imageElement.src = imageDataURL;
+                    canvas.remove();
+                })
             });
         });
     });
+
 </script>

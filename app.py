@@ -82,10 +82,10 @@ def convert():
     if uploaded_file.filename != '':
         # get datetime function
         now = datetime.now()
-            # setting date format (Date)
-        # current_time = now.strftime("%Y%m%d")
-            # setting date format (Date,Time)
-        current_time = now.strftime("%Y-%m-%d_%H:%M:%S")
+        # setting date format (Date)
+            # current_time = now.strftime("%Y%m%d")
+        # setting date format (Date,Time)
+        current_time = now.strftime("%Y-%m-%d_%H-%M-%S")
 
         # filename = os.path.basename(filename)
         filename = current_time + '-' + secure_filename(uploaded_file.filename)

@@ -103,7 +103,7 @@
 }
 
 .start_text {
-    font-size: 48px;
+    font-size: 32px;
     font-weight: 600;
 }
 
@@ -393,7 +393,10 @@ footer {
     border: 5px solid #204FE0 !important;
     border-radius: 10px !important;
 }
-
+.preview_pdf{
+    height: 150px;
+    object-fit: contain;
+}
 .btn_show {
     background-color: #204FE0;
     border: 5px solid #204FE0;
@@ -453,10 +456,41 @@ footer {
     border: 5px solid #204FE0;
     padding: 10px;
     border-radius: 10px;
-    width: 100%;
+    width: 75%;
     font-size: 24px;
 }
 
 #searchbar::placeholder {
     color: #204FE0;
+}
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) {
+    .start_text {
+        font-size: 48px;
+    }
+    #searchbar {
+        width: 100%;
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+
+}
+
+/* X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+
+}
+
+/* XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+
 }
