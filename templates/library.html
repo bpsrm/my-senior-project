@@ -124,38 +124,31 @@
             result.style.display = "none";
         }
     }
-</script>
-<script>
+
     const pdfjsLib = window['pdfjs-dist/build/pdf'];
     pdfjsLib.GlobalWorkerOptions.workerSrc = '//cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.worker.js';
+
     document.querySelectorAll('#file_name').forEach((fileNameElement) => {
         const fileName = fileNameElement.innerHTML;
         const fileUrl = `/uploads/${fileName}`;
         const canvasId = `canvas-${fileName}`;
-        // const canvasHtml = `<canvas class="preview_pdf" style="width: 100%;" id="${canvasId}"></canvas>`;
-        
-        // const cardBodyElement = fileNameElement.closest('.card').querySelector('.card-body.show_content');
+
         const imageElement = fileNameElement.closest('.card').querySelector('.preview_pdf');
         imageElement.src = fileUrl;
-        // cardBodyElement.innerHTML = canvasHtml;
-       
-        // Get canvas element
+
         const canvas = document.getElementById(canvasId);
 
-        // Load PDF file
         pdfjsLib.getDocument(fileUrl).promise.then((pdf) => {
-            // Get first page of PDF file
+
             pdf.getPage(1).then((page) => {
                 const scale = 1.5;
                 const viewport = page.getViewport({ scale });
 
-                // Prepare canvas element
                 const canvas = document.createElement('canvas');
                 const context = canvas.getContext('2d');
                 canvas.height = viewport.height;
                 canvas.width = viewport.width;
 
-                // Render PDF page into canvas
                 const renderContext = {
                     canvasContext: context,
                     viewport,
@@ -168,5 +161,4 @@
             });
         });
     });
-
 </script>
